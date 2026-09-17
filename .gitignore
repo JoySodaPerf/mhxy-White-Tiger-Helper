@@ -1,3 +1,4 @@
 node_modules/
 .wrangler/
 deploy/wrangler.toml
+dist/
