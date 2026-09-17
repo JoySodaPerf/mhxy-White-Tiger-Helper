@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1e3a5f"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde68a"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="url(#bg)"/>
+  <!-- ingot / sycee -->
+  <path d="M256 350c-96 0-140-58-140-118s60-74 140-74 140 14 140 74-44 118-140 118z" fill="url(#gold)" stroke="#b45309" stroke-width="8"/>
+  <path d="M256 158c-60 0-104 20-120 50 34-18 76-26 120-26s86 8 120 26c-16-30-60-50-120-50z" fill="#fbbf24"/>
+  <path d="M216 280l26-26 22 22 22-22 26 26-48 48z" fill="#92400e"/>
+  <!-- coins -->
+  <circle cx="158" cy="230" r="24" fill="#fbbf24" stroke="#92400e" stroke-width="6"/>
+  <rect x="149" y="222" width="18" height="16" rx="8" fill="#92400e"/>
+  <circle cx="362" cy="236" r="24" fill="#fbbf24" stroke="#92400e" stroke-width="6"/>
+  <rect x="353" y="228" width="18" height="16" rx="8" fill="#92400e"/>
+</svg>

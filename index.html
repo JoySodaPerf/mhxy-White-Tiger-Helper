@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/png" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-180.png">
+  <title>白虎堂跑商助手</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1><span class="deco">◆</span> 白虎堂跑商助手 <span class="deco">◆</span></h1>
+    <div class="sub">梦幻西游 · 畅玩服通用 · 商品溢价查询 + 流水记账</div>
+  </header>
+
+  <main id="view-price" class="view">
+    <!-- 地图选择 -->
+    <div class="chips" id="regionChips"></div>
+
+    <!-- 阈值说明 -->
+    <div class="threshold-bar">
+      <span class="legend-less80">&lt;80%</span>
+      <span class="legend-80to90">80~90%</span>
+      <span class="legend-90to100">90~100%</span>
+      <span class="legend-over100">&gt;100%</span>
+      <div class="explain">等比降价 · 越绿越划算</div>
+    </div>
+
+    <!-- 商品卡片列表 -->
+    <div id="goodsList"></div>
+
+    <!-- 参考路线 -->
+    <div class="info-panel">
+      <h3>推荐跑商路线</h3>
+      <div id="routes"></div>
+    </div>
+
+    <!-- 奖励参考 -->
+    <div class="info-panel">
+      <h3>等级奖励参考</h3>
+      <table class="rewards-table">
+        <thead><tr><th>等级</th><th>初始金</th><th>目标金</th><th>经验</th><th>帮贡</th><th>繁荣</th></tr></thead>
+        <tbody id="rewardsBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- 记账本 -->
+  <main id="view-ledger" class="view hidden">
+    <div class="ledger-wrap">
+      <!-- 语音条 -->
+      <div class="ledger-hd">
+        <h3>流水记账本</h3>
+        <button class="voice-btn" id="voiceBtn">🎤 语音录入</button>
+      </div>
+      <div id="voiceStatus" style="font-size:12px;color:var(--text-dim);min-height:18px;margin-bottom:8px;"></div>
+
+      <!-- 录入表单 -->
+      <div class="add-form">
+        <h3>录入一笔</h3>
+        <div class="form-row">
+          <label>记录类型</label>
+          <div class="seg" id="typeSeg">
+            <button data-type="buy" class="buy active">买入</button>
+            <button data-type="sell" class="sell">售出</button>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-row">
+            <label>地图</label>
+            <select id="fRegion" class="field"></select>
+          </div>
+          <div class="form-row">
+            <label>商品</label>
+            <select id="fGoods" class="field"></select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-row">
+            <label>单价</label>
+            <input id="fPrice" type="number" inputmode="numeric" placeholder="输入单价">
+          </div>
+          <div class="form-row">
+            <label>数量</label>
+            <input id="fQty" type="number" inputmode="numeric" value="1" placeholder="件数">
+            <div class="qty-hint" id="qtyHint"></div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label>备注（可选）</label>
+          <input id="fNote" type="text" placeholder="如：卖往长寿村">
+        </div>
+        <button class="submit-btn" id="submitEntry">＋ 记入流水</button>
+      </div>
+
+      <!-- 库存概览 -->
+      <div id="stockBox" style="background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin-bottom:12px;"></div>
+
+      <!-- 流水汇总 -->
+      <div class="ledger-hd">
+        <h3>流水明细</h3>
+        <div class="sum">净利：<b id="netSum">0</b></div>
+      </div>
+      <div id="entryList"></div>
+    </div>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="tabs">
+    <button data-tab="price" class="active"><span class="ico">🏷️</span>商品溢价</button>
+    <button data-tab="ledger"><span class="ico">📒</span>流水记账</button>
+  </nav>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+<div class="modal-mask hidden" id="modalMask">
+  <div class="sheet">
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+    <div class="copy-hint">点击价格自动填入录入表单</div>
+  </div>
+</div>
+
+<script src="./data.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
