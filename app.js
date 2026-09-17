@@ -536,10 +536,42 @@
 
     $$('.tabs button').forEach((b) => b.addEventListener('click', () => setTab(b.dataset.tab)));
 
-    // PWA
+    // PWA：注册 + 新版本提示
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
+      let refreshing = false;
+      navigator.serviceWorker.register('./sw.js').then((reg) => {
+        // 检测到新 Service Worker（有新版本）
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // 已有旧版本在控制 → 后台已有新版，等待用户刷新
+              showUpdateBanner(reg);
+            }
+          });
+        });
+      }).catch(() => {});
+
+      // 新 SW 接管页面时，自动刷新一次以应用新版本
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      });
     }
+  }
+
+  /* ========== 新版本提示 ========== */
+  function showUpdateBanner(reg) {
+    const banner = $('#updateBanner');
+    if (!banner) return;
+    banner.classList.remove('hidden');
+    $('#updateBtn').addEventListener('click', () => {
+      reg.waiting && reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+      // 若 waiting 不存在，直接刷新
+      if (!reg.waiting) window.location.reload();
+    });
+    // 也监听 sw 已更新消息时隐藏
   }
 
   document.addEventListener('DOMContentLoaded', init);
